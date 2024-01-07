@@ -1,0 +1,21 @@
+ 
+<div>
+    <p>customer</p>
+    @if (customers && customers.length > 0) {
+    <h2>List of Customers</h2>
+        @for (customer of customers; track $index) {
+            @if (selectedCustomer && selectedCustomer.id == customer.id) {
+            <update-customer [updateCustomer]="selectedCustomer" (cancelUpdate)="cancelUpdate()"
+                (saveUpdate)="saveUpdate($event)"></update-customer>
+            }
+            <br/>
+            <customer [customer]="customer" (updateCustomer)="updateCustomer($event)"></customer>
+        }
+       <add-customer (addCustomer)="addCustomer($event)"></add-customer>
+    }
+</div>
+<div>
+    @if (!customers || customers.length === 0) {
+        <p>No customers available.</p>
+    }
+</div>

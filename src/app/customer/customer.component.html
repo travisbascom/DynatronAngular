@@ -1,0 +1,14 @@
+
+
+<div>
+    {{ customer.name }} (ID: {{ customer.id }})
+    <br />
+    Email: {{ customer.email }}
+    <br />
+    Created Date: {{ customer.createdDate | date }}
+    <br />
+    Updated Date: {{ customer.updatedDate | date }}
+    <br />
+    <button (click)="updateClick()">Update</button>
+    <hr />
+</div>
