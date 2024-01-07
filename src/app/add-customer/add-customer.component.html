@@ -2,12 +2,14 @@
 
 <form (submit)="addClick()">
     <!-- Include form fields for adding a new customer -->
-    <label for="newName">Name:</label>
-    <input id="newName" [(ngModel)]="newCustomer.name" name="newName" required>
-
-    <label for="newEmail">Email:</label>
-    <input id="newEmail" [(ngModel)]="newCustomer.email" name="newEmail" required>
-
+    <div>
+        <label for="newName">Name:</label>
+        <input id="newName" [(ngModel)]="newCustomer.name" name="newName" required>
+    </div>
+    <div>    
+        <label for="newEmail">Email:</label>
+        <input id="newEmail" [(ngModel)]="newCustomer.email" name="newEmail" required>
+    </div>
     <!-- Add more form fields as needed -->
 
     <button type="submit">Add</button>

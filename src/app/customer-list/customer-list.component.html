@@ -9,9 +9,18 @@
                 (saveUpdate)="saveUpdate($event)"></update-customer>
             }
             <br/>
-            <customer [customer]="customer" (updateCustomer)="updateCustomer($event)"></customer>
+            @if(lastUpdateCustomerId == customer.id){
+                <div style="background-color: aqua;">
+                    <customer [customer]="customer" (updateCustomer)="updateCustomer($event)"></customer>
+                </div>
+             }
+             @else{
+                <div>
+                    <customer [customer]="customer" (updateCustomer)="updateCustomer($event)"></customer>
+                </div>
+             }
         }
-       <add-customer (addCustomer)="addCustomer($event)"></add-customer>
+       <add-customer (addedCustomer)="addedCustomer()"></add-customer>
     }
 </div>
 <div>

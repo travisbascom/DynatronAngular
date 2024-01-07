@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UpdateCustomer } from '../Models/customer';
 import { FormsModule } from '@angular/forms';
 import { DatePipe, JsonPipe } from '@angular/common';
+import { CustomerService } from '../Services/customer.service';
 
 @Component({
   selector: 'update-customer',
@@ -11,12 +12,14 @@ import { DatePipe, JsonPipe } from '@angular/common';
   styleUrl: './update-customer.component.css'
 })
 export class UpdateCustomerComponent {
-  @Input() updateCustomer: UpdateCustomer | undefined;
+  @Input() updateCustomer: UpdateCustomer = new UpdateCustomer;
   @Output() cancelUpdate = new EventEmitter<void>();
   @Output() saveUpdate = new EventEmitter<UpdateCustomer>();
-  //updatedCustomer:UpdateCustomer 
-  constructor(){
-    //this.updatedCustomer = { ...this.updateCustomer }; // Create a copy to avoid modifying the original
+  updatedCustomer: UpdateCustomer = new UpdateCustomer();
+  constructor(private customerService:CustomerService){}
+  
+  ngOnInit():void{
+     this.updatedCustomer = { ...this.updateCustomer }; // Create a copy to avoid modifying the original
   }
   
   cancelClick(): void {
@@ -24,8 +27,10 @@ export class UpdateCustomerComponent {
   }
 
   saveClick(): void {
-    console.log('in save click updateCustomer',this.updateCustomer)
-    //console.log('in save click updatedcustomer',this.updatedCustomer)
-    this.saveUpdate.emit(this.updateCustomer);
+    this.customerService.updateCustomer(this.updatedCustomer).subscribe(
+      (result) => {
+        this.saveUpdate.emit(this.updateCustomer);
+      }
+    );
   }
 }
