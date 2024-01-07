@@ -1,14 +1,14 @@
 <h2>Update Customer</h2>
 @if(updateCustomer){
     <form (submit)="saveClick()">
-        <input id="updatedName" [(ngModel)]="updateCustomer.id" name="updateId" required [hidden]="true">
+        <input id="updatedName" [(ngModel)]="updatedCustomer.id" name="updateId" required [hidden]="true">
         <div>
             <label for="updatedName">Updated Name:</label>
-            <input id="updatedName" [(ngModel)]="updateCustomer.name" name="updateName" required>
+            <input id="updatedName" [(ngModel)]="updatedCustomer.name" name="updateName" required>
         </div>
         <div>
             <label for="updatedEmail">Updated Email:</label>
-            <input id="updatedEmail" [(ngModel)]="updateCustomer.email" name="updateEmail" required>
+            <input id="updatedEmail" [(ngModel)]="updatedCustomer.email" name="updateEmail" required>
         </div>
         <div>
             <button type="submit">Save</button>

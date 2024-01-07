@@ -15,6 +15,7 @@ import { UpdateCustomerComponent } from '../update-customer/update-customer.comp
 export class CustomerListComponent {
   customers: Customer[] = []; 
   selectedCustomer: Customer | undefined;
+  lastUpdateCustomerId: any;
 
   constructor(private customerService:CustomerService){}
     
@@ -23,6 +24,7 @@ export class CustomerListComponent {
   }
 
   getCustomers(): void {
+    this.lastUpdateCustomerId = sessionStorage.getItem('lastUpdatedCustomerId')
     this.customerService.getCustomers().subscribe(
       (result) => {
         this.customers = result;
@@ -31,18 +33,11 @@ export class CustomerListComponent {
     );
   }
 
-  addCustomer(newCustomer: Customer): void {
-    this.customerService.createCustomer(newCustomer).subscribe(
-      (result) => {
-        console.log('Customer added successfully:', result);
-        // Refresh the customer list after a successful addition
-        this.getCustomers();
-      }
-    );
+  addedCustomer(): void {
+     this.getCustomers();
   }
 
   updateCustomer(updateCustomer: Customer): void {
-    console.log("in update Customer: updateCustomer ", updateCustomer);
     this.selectedCustomer = updateCustomer;
   }
 
@@ -51,18 +46,12 @@ export class CustomerListComponent {
   }
 
   saveUpdate(updatedCustomer: UpdateCustomer): void {
-    this.customerService.updateCustomer(updatedCustomer).subscribe(
-      (result) => {
-        console.log('Customer added successfully:', result);
-        // Refresh the customer list after a successful addition
-        this.getCustomers();
-      }
-    );
-    
-    console.log(`Updating customer: ${updatedCustomer.name} (ID: ${updatedCustomer.id})`);
+    let id: string = '';
+    if(updatedCustomer.id){
+      id = updatedCustomer.id.toString()
+    }
+    sessionStorage.setItem('lastUpdatedCustomerId', id);
     this.selectedCustomer = undefined;
     this.getCustomers();
   }
-
-  
 }
